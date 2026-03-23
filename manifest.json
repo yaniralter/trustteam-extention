@@ -10,6 +10,9 @@
   },
   "permissions": ["storage", "activeTab", "scripting", "tabs"],
   "host_permissions": ["https://api.base44.app/*", "https://trust-layer-flow.base44.app/*", "<all_urls>"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
   "background": {
     "service_worker": "background/service-worker.js"
   },

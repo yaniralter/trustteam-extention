@@ -3,7 +3,6 @@ const BASE_URL = "https://api.base44.app/api/apps/69b13e3366aa63081f267024/funct
 async function request(path, options = {}) {
   try {
     const fullUrl = `${BASE_URL}${path}`;
-    console.log("[Trusteam SW] fetch:", fullUrl);
     const response = await fetch(fullUrl, {
       headers: {
         "Content-Type": "application/json",
@@ -12,7 +11,6 @@ async function request(path, options = {}) {
       },
       ...options
     });
-    console.log("[Trusteam SW] response status:", response.status);
 
     if (!response.ok) {
       return null;
@@ -27,10 +25,8 @@ async function request(path, options = {}) {
 
 async function getPageTrust(url, domain, token) {
   if (!token) {
-    console.log("[Trusteam SW] getPageTrust: no token, skipping");
     return null;
   }
-  console.log("[Trusteam SW] getPageTrust calling API for:", domain);
   try {
     const result = await request("/getPageTrust", {
       method: "POST",
@@ -39,7 +35,6 @@ async function getPageTrust(url, domain, token) {
       },
       body: JSON.stringify({ url, domain })
     });
-    console.log("[Trusteam SW] getPageTrust result:", result ? "success" : "null");
     return result;
   } catch (e) {
     console.error("[Trusteam SW] getPageTrust error:", e.message);
@@ -65,8 +60,13 @@ async function verifyAuth(token) {
     const parts = token.split(".");
     if (parts.length !== 3) return null;
     const payload = JSON.parse(atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")));
-    console.log("[Trusteam SW] JWT payload:", JSON.stringify(payload));
     if (!payload) return null;
+    // Check token expiry
+    if (payload.exp && Date.now() / 1000 > payload.exp) {
+      console.warn("[Trusteam SW] Token expired");
+      await clearAuthState();
+      return null;
+    }
     // Return user object from JWT payload
     return {
       email: payload.email || payload.sub || null,
@@ -235,7 +235,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     switch (message.type) {
       case "GET_AUTH_STATE": {
         const state = await getAuthState();
-        console.log("[Trusteam SW] GET_AUTH_STATE:", state.isLoggedIn ? "logged in" : "not logged in");
         if (!state.isLoggedIn) {
           // Try to recover token from active Trusteam tab
           checkActiveTabForToken();
@@ -305,9 +304,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             body: JSON.stringify(body)
           });
 
-          console.log("[Trusteam SW] submitSignal status:", submitRes.status);
           const submitBody = await submitRes.text();
-          console.log("[Trusteam SW] submitSignal body:", submitBody.substring(0, 200));
 
           const submitResult = submitRes.ok ? JSON.parse(submitBody) : null;
           const trustData = url && domain ? await getPageTrust(url, domain, token) : null;
@@ -373,7 +370,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         } catch {
           // keep default
         }
-        console.log("[Trusteam SW] OPEN_APP_PAGE received, page:", page, "url:", appUrl);
         chrome.tabs.query({}, (tabs) => {
           const existing = (tabs || []).find((t) => {
             try {
@@ -383,10 +379,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             }
           });
           if (existing && existing.id != null) {
-            console.log("[Trusteam SW] Updating existing tab:", existing.id);
             chrome.tabs.update(existing.id, { active: true, url: appUrl });
           } else {
-            console.log("[Trusteam SW] Creating new tab:", appUrl);
             chrome.tabs.create({ url: appUrl, active: true });
           }
         });
