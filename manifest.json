@@ -3,6 +3,11 @@
   "name": "Trusteam",
   "version": "1.0.0",
   "description": "See who really trusts this page",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
   "permissions": ["storage", "activeTab", "scripting", "tabs"],
   "host_permissions": ["https://api.base44.app/*", "https://trust-layer-flow.base44.app/*", "<all_urls>"],
   "background": {
