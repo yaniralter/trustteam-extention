@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Trusteam",
+  "version": "1.0.0",
+  "description": "See who really trusts this page",
+  "permissions": ["storage", "activeTab", "scripting", "tabs"],
+  "host_permissions": ["https://api.base44.app/*", "https://trust-layer-flow.base44.app/*", "<all_urls>"],
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html"
+  },
+  "externally_connectable": {
+    "matches": ["https://trust-layer-flow.base44.app/*", "https://*.base44.app/*"]
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["content/content.js", "content/flow-auth.js", "content/widget.css"],
+      "matches": ["https://trust-layer-flow.base44.app/*", "https://*.base44.app/*"]
+    }
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/content.js"],
+      "css": ["content/widget.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://trust-layer-flow.base44.app/*"],
+      "js": ["content/flow-auth.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

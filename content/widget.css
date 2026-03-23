@@ -1,0 +1,281 @@
+.trusteam-widget {
+  position: fixed;
+  overflow: visible;
+  bottom: 20px;
+  z-index: 999999;
+  background: #f0f0f0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  border-radius: 20px;
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  transition: all 0.3s ease;
+  cursor: grab;
+  user-select: none;
+}
+.trusteam-widget * {
+  box-sizing: border-box;
+}
+/* EXPANDED - top row */
+.trusteam-top-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+/* EXPANDED - bottom row */
+.trusteam-bottom-row {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+  border-top: 1px solid #ddd;
+  padding-top: 8px;
+}
+/* COLLAPSED */
+.trusteam-widget.trusteam-collapsed {
+  border-radius: 999px;
+  padding: 8px 14px;
+  flex-direction: row;
+}
+.trusteam-widget.trusteam-collapsed .trusteam-bottom-row {
+  display: none;
+}
+.trusteam-widget.trusteam-collapsed .trusteam-invite-section {
+  display: none !important;
+}
+.trusteam-widget.trusteam-collapsed .trusteam-top-row {
+  gap: 8px;
+}
+
+.trusteam-invite-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  padding-top: 2px;
+}
+
+.trusteam-tooltip-box {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #222;
+  color: white;
+  font-size: 11px;
+  font-weight: 400;
+  padding: 8px 12px;
+  border-radius: 8px;
+  width: 200px;
+  text-align: center;
+  line-height: 1.5;
+  z-index: 9999999;
+  pointer-events: none;
+  white-space: normal;
+}
+
+.trusteam-invite-tooltip-icon {
+  font-size: 11px;
+  opacity: 0.8;
+  position: relative;
+  cursor: pointer;
+}
+
+.trusteam-invite-tooltip-icon:hover .trusteam-tooltip-box {
+  display: block;
+}
+
+.trusteam-invite-btn {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  color: #3d3200;
+  background: linear-gradient(180deg, #f0d060 0%, #d4a017 45%, #c99700 100%);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  transition: filter 0.2s, transform 0.1s;
+}
+
+.trusteam-invite-btn:hover {
+  filter: brightness(1.05);
+}
+
+.trusteam-invite-btn:active {
+  transform: scale(0.98);
+}
+/* Gauge */
+.trusteam-gauge {
+  flex-shrink: 0;
+}
+/* Buttons */
+.trusteam-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 7px 16px 7px 7px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: inherit;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+  white-space: nowrap;
+  color: white;
+}
+.trusteam-btn:hover { opacity: 0.88; }
+.trusteam-btn:active { transform: scale(0.97); }
+.trusteam-btn-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+.trusteam-btn-gem { background: #1a7a4a; }
+.trusteam-btn-junk { background: #e53935; }
+.trusteam-btn-active.trusteam-btn-gem {
+  box-shadow: 0 0 0 3px #1a7a4a55;
+}
+.trusteam-btn-active.trusteam-btn-junk {
+  box-shadow: 0 0 0 3px #e5393555;
+}
+/* Collapsed smaller buttons */
+.trusteam-collapsed .trusteam-btn {
+  padding: 5px 12px 5px 5px;
+  font-size: 12px;
+  gap: 5px;
+}
+.trusteam-collapsed .trusteam-btn-icon {
+  width: 22px;
+  height: 22px;
+  font-size: 13px;
+}
+/* Toggle button */
+.trusteam-toggle-btn {
+  border: none;
+  background: #ccc;
+  border-radius: 999px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #555;
+  font-weight: 700;
+  line-height: 1;
+  transition: background 0.2s;
+}
+.trusteam-collapsed .trusteam-toggle-btn {
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+}
+.trusteam-toggle-btn:hover { background: #bbb; }
+
+.trusteam-close-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 16px;
+  height: 16px;
+  border: none;
+  background: transparent;
+  color: #bbb;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity 0.2s, color 0.2s;
+  z-index: 1;
+}
+
+.trusteam-widget:hover .trusteam-close-btn {
+  opacity: 1;
+}
+
+.trusteam-close-btn:hover {
+  color: #888;
+  background: rgba(0,0,0,0.06);
+}
+
+/* Nav buttons */
+.trusteam-nav-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+  font-family: inherit;
+  transition: opacity 0.2s;
+}
+.trusteam-nav-btn:hover { opacity: 0.85; }
+.trusteam-nav-btn-feed { background: #1976d2; }
+.trusteam-nav-btn-profile { background: #7b1fa2; }
+.trusteam-nav-btn-team {
+  background: #1a7a4a;
+}
+
+/* Status text (logged out) */
+.trusteam-status-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a7a4a;
+  cursor: pointer;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+.trusteam-status-text:hover { opacity: 0.8; }
+/* Toast */
+.trusteam-toast {
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: #1a7a4a;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 9999999;
+}
+.trusteam-toast-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@keyframes trusteam-pulse-red {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0); }
+  50% { box-shadow: 0 0 0 6px rgba(229, 57, 53, 0.3); }
+}
+

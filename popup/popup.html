@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Trusteam</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div id="app" class="trusteam-popup">
+      <header class="popup-header">
+        <div class="popup-logo">
+          <span class="popup-logo-circle">T</span>
+          <div class="popup-header-text">
+            <div class="popup-title">Trusteam</div>
+            <div id="popup-user-name" class="popup-user-name">Not connected</div>
+          </div>
+        </div>
+        <div id="popup-trust-level" class="popup-trust-level-badge">Guest</div>
+      </header>
+
+      <main class="popup-main" id="popup-main">
+        <section id="popup-auth-section" class="popup-section popup-auth-section">
+          <button id="connect-account-btn" class="popup-primary-btn">
+            Connect Account
+          </button>
+          <button id="login-flow-btn" class="popup-primary-btn popup-secondary-btn">
+            Login with Trusteam
+          </button>
+        </section>
+
+        <section id="popup-page-section" class="popup-section popup-page-section hidden">
+          <div class="popup-section-header">
+            <div class="popup-section-title">Current page</div>
+            <div id="popup-domain" class="popup-domain"></div>
+          </div>
+
+          <div class="popup-score-row">
+            <div class="popup-score-label">Trust score</div>
+            <div id="popup-score-value" class="popup-score-value">-</div>
+          </div>
+
+          <div class="popup-score-bar-wrapper">
+            <div class="popup-score-bar-bg">
+              <div id="popup-score-bar-fill" class="popup-score-bar-fill"></div>
+            </div>
+          </div>
+
+          <div class="popup-counts">
+            <span id="popup-gem-count">💎 0</span>
+            <span id="popup-junk-count">🗑️ 0</span>
+          </div>
+
+          <div class="popup-rating-buttons">
+            <button id="popup-gem-btn" class="popup-chip-btn popup-chip-gem">
+              💎 Gem
+            </button>
+            <button id="popup-junk-btn" class="popup-chip-btn popup-chip-junk">
+              🗑️ Junk
+            </button>
+          </div>
+        </section>
+      </main>
+
+      <div class="popup-show-widget-section">
+        <button id="show-widget-btn" class="popup-show-widget-btn">
+          👁 Show Widget
+        </button>
+      </div>
+
+      <footer class="popup-footer">
+        <a
+          id="open-app-link"
+          href="https://trust-layer-flow.base44.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="popup-link"
+          >Open Trusteam App</a
+        >
+        <button id="logout-btn" class="popup-ghost-btn">Logout</button>
+      </footer>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
+
